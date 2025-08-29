@@ -86,11 +86,11 @@ Elimina un contenedor detenido. Para eliminar un contenedor en ejecución, usa `
 docker rm <id_o_nombre>
 ```
 
-## Persistencia de datos: Volúmenes
+## Persistencia de Datos: Volúmenes
 
 Por defecto, los datos dentro de un contenedor son temporales. Si el contenedor se elimina, los datos también lo hacen. Para garantizar la persistencia de los datos, Docker ofrece varias opciones, siendo los volúmenes la más recomendada.
 
-### Tipos de persistencia de datos
+### Tipos de Persistencia de Datos
 
 - **Volúmenes:** Son la forma preferida de persistir datos. Son administrados por Docker y residen en una parte del sistema de archivos del host que Docker gestiona.
 - **Bind Mounts:** Permiten vincular un archivo o directorio de tu máquina local directamente al sistema de archivos del contenedor. Son útiles para el desarrollo, ya que los cambios en el código local se reflejan instantáneamente en el contenedor.
@@ -124,7 +124,7 @@ Elimina un volumen. Los volúmenes no se eliminan automáticamente cuando elimin
 docker volume rm <nombre>
 ```
 
-### Cómo usar volúmenes
+### Cómo Usar Volúmenes
 
 Puedes adjuntar un volumen a un contenedor al momento de crearlo con la opción `-v` o `--mount`.
 

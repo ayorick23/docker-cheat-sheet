@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./index.php:/var/www/html/index.php
+    depends_on:
+      - php
+    networks:
+      - app_network
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+    volumes:
+      - ./index.php:/var/www/html/index.php
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

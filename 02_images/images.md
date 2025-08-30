@@ -34,6 +34,15 @@ Copia archivos o directorios desde el sistema de archivos del host al sistema de
 COPY . . # Copia todo el contenido del directorio actual del host al directorio de trabajo en el contenedor
 ```
 
+### `ADD`
+
+La instrucción `ADD` te permite copiar archivos, directorios o incluso archivos desde una URL remota al sistema de archivos de tu imagen de Docker. A diferencia de `COPY`, que solo maneja archivos locales, `ADD` tiene una funcionalidad adicional: si el archivo de origen es un archivo comprimido local (.tar, .gzip, .bzip2, etc.), lo descomprime automáticamente al copiarlo en el destino.
+
+```docker
+ADD ./app /app
+ADD https://example.com/latest.tar.gz /app/
+```
+
 ### `RUN`
 
 Ejecuta un comando en una nueva capa sobre la imagen actual. Se usa para instalar paquetes, configurar el entorno o cualquier otro comando de línea que sea necesario para la aplicación.
@@ -64,6 +73,27 @@ Similar a `CMD`, pero define el comando principal que se ejecutará al iniciar e
 
 ```docker
 ENTRYPOINT ["/usr/bin/npm"]
+```
+
+### `ENV`
+
+La instrucción `ENV` establece variables de entorno que están disponibles tanto durante la construcción de la imagen como en el tiempo de ejecución del contenedor. Esto es muy útil para configurar valores que pueden cambiar, como una URL de base de datos o un modo de entorno (producción, desarrollo). Los procesos dentro del contenedor pueden acceder a estas variables.
+
+```docker
+ENV APP_HOME=/usr/src/app
+ENV NODE_ENV=production
+WORKDIR $APP_HOME
+```
+
+### `USER`
+
+La instrucción `USER` define el usuario (o UID) que ejecutará todos los comandos subsiguientes en el Dockerfile, así como los procesos que se inicien en el contenedor. Por defecto, los contenedores de Docker se ejecutan como el usuario `root`, lo cual es un riesgo de seguridad. Usar `USER` es una buena práctica de seguridad para reducir los privilegios del contenedor y limitar el impacto en caso de una vulnerabilidad.
+
+```docker
+# Se crea un nuevo usuario 'appuser'
+RUN adduser -D appuser
+# Se cambia el usuario para las siguientes instrucciones
+USER appuser
 ```
 
 ## Flujo de Construcción
@@ -119,7 +149,19 @@ docker rmi <id_imagen_o_nombre>:<etiqueta>
   docker rmi mi-aplicacion:v1.0
   ```
 
-Si una imagen está siendo utilizada por un contenedor, no podrás eliminarla. Primero deberás detener y eliminar el contenedor.
+o:
+
+```docker
+docker image rm <id_imagen_o_nombre>:<etiqueta>
+```
+
+- **Ejemplo:**
+
+  ```docker
+  docker image rm mi-aplicacion:v1.0
+  ```
+
+**IMPORTANTE:** Si una imagen está siendo utilizada por un contenedor, no podrás eliminarla. Primero deberás detener y eliminar el contenedor.
 
 ### Publicando Imágenes en Docker Hub
 
@@ -142,6 +184,22 @@ Para compartir tus imágenes con otros o usarlas en otros entornos, puedes subir
    ```docker
    docker push tu_usuario/mi-aplicacion:v1.0
    ```
+
+### Guardar una Imagen en un Archivo `.tar`
+
+Para guardar una imagen de Docker como un archivo `.tar`, utiliza el comando `docker save`. Este comando es útil para empaquetar una imagen y todas sus capas y metadatos en un solo archivo que se puede transportar fácilmente. El archivo resultante es un _tarball_ que contiene toda la imagen, lista para ser cargada en otro host de Docker.
+
+```docker
+docker save --output <nombre_archivo.tar> <nombre_imagen>:<etiqueta>
+```
+
+### Cargar una Imagen desde un Archivo `.tar`
+
+Para cargar una imagen desde un archivo `.tar` en otro host de Docker, utiliza el comando `docker load`. Este comando lee el archivo `.tar` y restaura la imagen en el registro local de Docker del nuevo host, haciendo que esté disponible para ser utilizada para crear contenedores.
+
+```docker
+docker load --input <nombre_archivo.tar>
+```
 
 ## Mejores Prácticas para un Dockerfile Eficiente
 

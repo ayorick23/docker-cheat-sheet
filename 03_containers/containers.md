@@ -30,6 +30,14 @@ El comando más usado. Crea un contenedor y lo inicia en un solo paso.
 docker run <imagen>
 ```
 
+### `docker logs`
+
+El comando `docker logs` te permite ver la salida estándar (`stdout`) y los errores estándar (`stderr`) de un contenedor en ejecución o que ya ha terminado. Es esencial para la monitorización y depuración de tus aplicaciones, ya que te muestra lo que está sucediendo dentro del contenedor, como mensajes de depuración, errores de aplicación o simplemente la salida de un script.
+
+```docker
+docker logs <ID_o_nombre_del_contenedor>
+```
+
 ### `docker start`
 
 Inicia un contenedor que está en estado `Created` o `Stopped`.
@@ -85,6 +93,16 @@ Elimina un contenedor detenido. Para eliminar un contenedor en ejecución, usa `
 ```docker
 docker rm <id_o_nombre>
 ```
+
+### `docker exec`
+
+El comando `docker exec` te permite ejecutar un comando dentro de un contenedor que ya está en funcionamiento. Esto es fundamental para tareas de mantenimiento, depuración o para interactuar directamente con un proceso en el contenedor sin tener que detenerlo o reiniciarlo. A diferencia de `docker run`, que crea y ejecuta un nuevo contenedor, `docker exec` se conecta a uno existente.
+
+```docker
+docker exec <opciones> <ID_o_nombre_del_contenedor> <comando>
+```
+
+**IMPORTANTE:** Para consultar todos los argumentos que pueden ser utilizados en estos comandos se usa `--help`.
 
 ## Persistencia de Datos: Volúmenes
 

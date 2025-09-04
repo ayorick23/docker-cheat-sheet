@@ -112,7 +112,8 @@ Este repositorio ha sido creado recopilando y sintetizando información de diver
   - [Docker documentation](https://docs.docker.com/)
 - **Roadmap DevOps:** Una guía completa para convertirse en un ingeniero de DevOps, que incluye Docker.
   - [Roadmap DevOps](https://roadmap.sh/java)
--
+- **Ultimate Docker: Guía de cero hasta despliegues** por **Nicolas Schurmann:** Un recurso invaluable que proporcionó una base sólida y conocimientos teóricos y prácticos sobre los fundamentos de Docker, la plataforma Docker Hub y flujos de trabajo avanzados hasta el despliegue de aplicaciones en servidores.
+  - [Curso de Udemy](https://www.udemy.com/course/ultimate-docker-guia-de-cero-hasta-despliegues/?kw=ultimate+docker&src=sac&couponCode=KEEPLEARNING)
 
 ## 🎖️ Licencia
 
